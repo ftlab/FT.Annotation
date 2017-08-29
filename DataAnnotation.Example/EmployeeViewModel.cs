@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,21 +17,28 @@ namespace DataAnnotation.Example
 
         public EmployeeViewModel(Employee data)
         {
-            data = _data ?? throw new ArgumentNullException(nameof(data));
+            _data = data ?? throw new ArgumentNullException(nameof(data));
         }
 
+        [StringLength(15)]
         public string Name
         {
             get
             {
-                return _data.Name;
+                return Data.Name;
             }
             set
             {
-                _data.Name = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
+                Data.Name = value;
+
+                PropertyChanged
+                    ?.Invoke(
+                        sender: this
+                        , e: new PropertyChangedEventArgs(nameof(Name)));
             }
         }
+
+        public Employee Data => _data;
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

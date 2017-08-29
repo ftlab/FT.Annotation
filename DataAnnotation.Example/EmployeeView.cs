@@ -15,6 +15,8 @@ namespace DataAnnotation.Example
         public EmployeeView()
         {
             InitializeComponent();
+
+            bindingSource1.DataSource = new EmployeeViewModel(new Employee());
         }
     }
 }
